@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:sawwah_app/views/event_detail.dart';
 
 class PromoCard extends StatelessWidget {
   const PromoCard({super.key});
@@ -41,7 +41,19 @@ class PromoCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => EventDetail(
+                          title: 'Promo Event',
+                          image: 'assets/img_5.png',
+                          location: 'Promo Location',
+                          price: 'Free',
+                        ),
+                      ),
+                    );
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.deepPurple,
@@ -66,12 +78,11 @@ class PromoCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             child: Image.asset(
               'assets/img_5.png',
-              width: 170,  // was 80
-              height: 140, // was 100
+              width: 170,
+              height: 140,
               fit: BoxFit.cover,
             ),
           ),
-
         ],
       ),
     );

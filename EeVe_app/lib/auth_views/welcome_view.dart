@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sawwah_app/Custom_Widget_/custom_button.dart';
 import 'signup_view.dart';
 import 'signin_view.dart';
@@ -12,10 +13,7 @@ class WelcomeView extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Image.asset(
-            'assets/welcome_background.png',
-            fit: BoxFit.cover,
-          ),
+          Image.asset('assets/welcome_background.png', fit: BoxFit.cover),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
@@ -34,20 +32,14 @@ class WelcomeView extends StatelessWidget {
                 CustomButton(
                   text: 'sign in',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const SignInView()),
-                    );
+                    Get.to(SigninView());
                   },
                 ),
                 const SizedBox(height: 20),
                 CustomButton(
                   text: 'sign up',
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => const SignUpView()),
-                    );
+                    Get.to(SignupView());
                   },
                 ),
                 const SizedBox(height: 60),

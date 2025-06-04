@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sawwah_app/views/search_page.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({super.key});
@@ -42,17 +43,26 @@ class HomeHeader extends StatelessWidget {
           ),
         ),
 
-        // Settings Icon
-        Container(
-          height: 38,
-          width: 38,
-          decoration: BoxDecoration(
-            color: const Color(0xFF1E1E2C),
-            borderRadius: BorderRadius.circular(12),
+        // Settings Icon with onTap
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SearchPage()),
+            );
+          },
+          child: Container(
+            height: 38,
+            width: 38,
+            decoration: BoxDecoration(
+              color: const Color(0xFF1E1E2C),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(Icons.search, color: Colors.white, size: 20),
           ),
-          child: Icon(Icons.settings, color: Colors.white, size: 20),
         ),
       ],
     );
   }
 }
+

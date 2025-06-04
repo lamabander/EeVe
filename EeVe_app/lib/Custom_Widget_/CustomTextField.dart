@@ -39,10 +39,9 @@ class CustomTextField extends StatelessWidget {
                 color: hasFocus ? Colors.white70 : Colors.white54,
               ),
               filled: true,
-              fillColor:
-                  hasFocus
-                      ? const Color(0xFF1565FF).withOpacity(0.3)
-                      : const Color(0xFF745094), // soft purple
+              fillColor: hasFocus
+                  ? const Color(0xFF1565FF).withOpacity(0.3)
+                  : const Color(0xFF745094), // soft purple
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 16,
                 vertical: 14,

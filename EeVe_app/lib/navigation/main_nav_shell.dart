@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
+import 'package:sawwah_app/views/my_ticket_view2.dart';
 
 import '../views/home_view.dart';
 import '../views/favorites_view.dart';
@@ -24,12 +25,13 @@ class _MainNavShellState extends State<MainNavShell> {
   }
 
   List<Widget> _buildScreens() {
-    return const [
-      HomeView(),
-      FavoritesView(),
-      MyTicketView(),
-      AiGetStartedView(),
-      ProfileView(),
+    return [
+      const HomeView(),
+      FavoritesView(key: UniqueKey()),
+      // const MyTicketView(), 
+      const Myticket(), 
+      const AiGetStartedView(),
+      const ProfileView(),
     ];
   }
 
