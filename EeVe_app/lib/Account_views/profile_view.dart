@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sawwah_app/Account_views/about_app_view.dart';
 import 'package:sawwah_app/Account_views/edit_profile_view.dart';
 import 'package:sawwah_app/Account_views/my_cards_view.dart';
-
-
+import 'package:sawwah_app/auth_views/signin_view.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:get/route_manager.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -16,8 +17,12 @@ class _ProfileViewState extends State<ProfileView> {
   bool isDarkMode = true;
   bool isNotificationsOn = false;
 
+  final user = Supabase.instance.client.auth.currentUser;
+
   @override
   Widget build(BuildContext context) {
+    print(user?.userMetadata); // 👈 هذا السطر
+
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
       appBar: AppBar(
@@ -34,46 +39,67 @@ class _ProfileViewState extends State<ProfileView> {
             // Profile Info
             Row(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 30,
-                  backgroundImage: AssetImage('assets/profile.jpg'),
+                  backgroundImage:
+                      user?.userMetadata?['profile_image'] != null &&
+                              user!.userMetadata!['profile_image']
+                                  .toString()
+                                  .isNotEmpty
+                          ? NetworkImage(user?.userMetadata!['profile_image'])
+                          : AssetImage('assets/profileImage.png')
+                              as ImageProvider,
                 ),
                 const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Aaron Ramsdale',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                      user?.userMetadata!['name'] ?? 'User Name',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                     Text(
-                      'aaronramsdale@gmail.com',
-                      style: TextStyle(color: Colors.white70),
+                      user?.email ?? 'user@example.com',
+                      style: const TextStyle(color: Colors.white70),
                     ),
                   ],
-                )
+                ),
               ],
             ),
-            const SizedBox(height: 32),
 
-            const Text('Personal Info', style: TextStyle(color: Colors.white54)),
+            const SizedBox(height: 32),
+            const Text(
+              'Personal Info',
+              style: TextStyle(color: Colors.white54),
+            ),
             const SizedBox(height: 16),
 
             ListTile(
               leading: const Icon(Icons.person_outline, color: Colors.white),
-              title: const Text('Edit Profile', style: TextStyle(color: Colors.white)),
+              title: const Text(
+                'Edit Profile',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const EditProfileView()),
+                  MaterialPageRoute(
+                    builder: (context) => const EditProfileView(),
+                  ),
                 );
               },
             ),
             ListTile(
               leading: const Icon(Icons.credit_card, color: Colors.white),
-              title: const Text('My Cards', style: TextStyle(color: Colors.white)),
+              title: const Text(
+                'My Cards',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MyCardsView()),
@@ -81,15 +107,20 @@ class _ProfileViewState extends State<ProfileView> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.confirmation_number, color: Colors.white),
-              title: const Text('Tickets', style: TextStyle(color: Colors.white)),
+              leading: const Icon(
+                Icons.confirmation_number,
+                color: Colors.white,
+              ),
+              title: const Text(
+                'Tickets',
+                style: TextStyle(color: Colors.white),
+              ),
               onTap: () {
-
+                // Replace this with actual ticket page if available
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const MyCardsView()),
                 );
-
               },
             ),
 
@@ -105,8 +136,14 @@ class _ProfileViewState extends State<ProfileView> {
                   isDarkMode = val;
                 });
               },
-              title: const Text('Dark mode', style: TextStyle(color: Colors.white)),
-              secondary: const Icon(Icons.dark_mode_outlined, color: Colors.white),
+              title: const Text(
+                'Dark mode',
+                style: TextStyle(color: Colors.white),
+              ),
+              secondary: const Icon(
+                Icons.dark_mode_outlined,
+                color: Colors.white,
+              ),
               activeColor: Color(0xFF8B57E6),
             ),
 
@@ -118,8 +155,14 @@ class _ProfileViewState extends State<ProfileView> {
                   isNotificationsOn = val;
                 });
               },
-              title: const Text('Notification', style: TextStyle(color: Colors.white)),
-              secondary: const Icon(Icons.notifications_none, color: Colors.white),
+              title: const Text(
+                'Notification',
+                style: TextStyle(color: Colors.white),
+              ),
+              secondary: const Icon(
+                Icons.notifications_none,
+                color: Colors.white,
+              ),
               activeColor: Color(0xFF8B57E6),
             ),
 
@@ -139,8 +182,14 @@ class _ProfileViewState extends State<ProfileView> {
 
             ListTile(
               leading: const Icon(Icons.logout, color: Colors.white),
-              title: const Text('Log out', style: TextStyle(color: Colors.white)),
-              onTap: () {},
+              title: const Text(
+                'Log out',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () async {
+                await Supabase.instance.client.auth.signOut();
+                Get.offAll(() => const SigninView());
+              },
             ),
           ],
         ),

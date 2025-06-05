@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:sawwah_app/Account_views/profile_view.dart';
 import 'package:sawwah_app/Custom_Widget_/CustomTextField.dart';
 import 'package:sawwah_app/Custom_Widget_/custom_button.dart';
 import 'package:sawwah_app/auth_views/signup_view.dart';
@@ -72,7 +73,7 @@ class _SigninViewState extends State<SigninView> {
                     final emailConfirmed = user.emailConfirmedAt != null;
 
                     if (emailConfirmed) {
-                      Get.offAll(() => const HomeView());
+                      Get.offAll(() => const ProfileView());
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

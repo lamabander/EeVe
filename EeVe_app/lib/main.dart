@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'PlusJakartaSans'),
 
-      home: VerificationCodeView(email: "lama"),
+      home: SigninView(),
     );
   }
 }

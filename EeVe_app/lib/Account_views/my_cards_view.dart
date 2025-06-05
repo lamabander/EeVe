@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Custom_Widget_/credit_card_widget.dart';
+import 'package:sawwah_app/Custom_Widget_/credit_card_widget.dart';
 import '../Custom_Widget_/Custom_button.dart';
 import 'add_card_view.dart';
 
@@ -12,10 +12,7 @@ class MyCardsView extends StatelessWidget {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text(
-          'My Cards',
-          style: TextStyle(color: Colors.white),
-        ),
+        title: const Text('My Cards', style: TextStyle(color: Colors.white)),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 24, 16, 40), //  lifted bottom
